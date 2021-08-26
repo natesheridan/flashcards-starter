@@ -11,19 +11,24 @@ let currentDeck = prototypeQuestions;
 
 
 class Game {
-  constructor() {
-    this.rawDeckArray = currentDeck;
-    this.instanciatedCardsArray = undefined;
+  constructor(rawDeckArray) {
+    this.rawDeckArray = rawDeckArray || currentDeck;
     this.deck;
+    this.currentRound;
   }
   start(){
-    this.instanciatedDeckArray = this.rawDeckArray.map(function(rawQuestionObj){
-      new Card(rawQuestionObj.id, rawQuestionObj.question, rawQuestionObj.answers, rawQuestionObj.correctAnswer)
+    let rawDeck = this.rawDeckArray;
+    let instanciatedCardsArray = this.rawDeckArray.map(function(card, index){
+      return new Card(rawDeck[index].id, rawDeck[index].question, rawDeck[index].answers, rawDeck[index].correctAnswer)
     })
+    this.deck = new Deck(instanciatedCardsArray)
+    this.currentRound = new Round(this.deck)
+    this.printMessage(this.deck)
+    this.printQuestion(this.currentRound)
 
   }
 
-  printMessage(deck, round) {
+  printMessage(deck) {
       console.log(`Welcome to FlashCards! You are playing with ${deck.countCards()} cards.
 -----------------------------------------------------------------------`)
   }

@@ -29,7 +29,6 @@ class Round{
         }
     }
     calculatePercentCorrect(){
-        let pct = (this.correctGuesses.length/this.deck.length*100).toFixed(2)
         let percentage = `${(this.correctGuesses.length/this.deck.length*100).toFixed(2)}%`
         return `${percentage}`
     }
